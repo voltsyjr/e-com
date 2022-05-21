@@ -1,0 +1,8 @@
+@use "../../global/vars.scss" as *; 
+
+.h1 {
+    font-size : 56px; 
+    @media (min-width : $m) {
+        
+    }
+}

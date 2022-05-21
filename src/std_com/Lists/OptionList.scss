@@ -1,0 +1,15 @@
+.optionList {
+    width : 100%; 
+    display : flex; 
+    flex-wrap: wrap;
+    margin-left : -4px; 
+    margin-right : -4px; 
+}
+.dummy {
+    flex : 1 1 46%; 
+    margin-left : 4px; 
+    margin-right : 4px; 
+    border-radius : 4px; 
+    padding : 4px; 
+    height : 0;
+}

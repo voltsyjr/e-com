@@ -1,0 +1,130 @@
+/*font-family: 'Playfair Display', serif;
+font-family: 'Poppins', sans-serif;*/
+@use "./global/vars.scss" as *; 
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,800;0,900;1,400&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  /*breakpoints*/
+  /*note -> after xs it is max-widht else min-width*/
+  --xs : 480px; 
+  --xs-1 : 400px; 
+  --xs-2 : 360px; 
+  --s : 600px; 
+  --s-1 : 840px; 
+  --m : 960px; 
+  --l : 1280px; 
+  --l-1 : 1440px; 
+  --l-2 : 1600px; 
+  --xl : 1920px; 
+
+  /* colors */
+  --primary : #f8bbd0; 
+  --primary-light : #ffeeff; 
+  --primary-dark : #c48b9f; 
+  --secondary : #0038FF; 
+  --secondary-light : #698aff; 
+  --secondary-dark : #00145C; 
+
+  /*greys*/
+  --grey-light : #efefef; 
+
+  --reff : 20px; 
+}
+
+body {
+  overflow-x: hidden;
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.black {
+  font-weight: 900;
+}
+.extrabold {
+  font-weight: 800;
+}
+.bold {
+  font-weight: 700;
+}
+.semibold {
+  font-weight: 600;
+}
+.medium {
+  font-weight: 500;
+}
+.regular {
+  font-weight: 400;
+}
+.light {
+  font-weight : 300; 
+}
+.extralight {
+  font-weight : 200; 
+}
+.poppins {
+  font-family: "Poppins";
+}
+.display {
+  font-family: "Playfair Display";
+}
+
+.row {
+  display : flex; 
+  align-items : center; 
+}
+
+h1 {
+  font-size: 32px;
+  @media (min-width: $s) {
+    font-size: 40px;
+  }
+  @media (min-width: $m) {
+    font-size: 48px;
+  }
+}
+
+h2 {
+  font-size: 24px;
+  
+  @media (min-width: $s) {
+    font-size: 32px;
+  }
+  @media (min-width: $m) {
+    font-size: 36px;
+  }
+}
+
+h3 {
+  font-size: 16px;
+  
+  @media (min-width: $s) {
+    font-size: 20px;
+  }
+  @media (min-width: $m) {
+    font-size: 24px;
+  }
+}
+
+p {
+  font-size: 16px;
+  @media (min-width: $m) {
+    font-size: 24px;
+  }
+  @media (min-width: $s) {
+    font-size: 20px;
+  }
+}
+

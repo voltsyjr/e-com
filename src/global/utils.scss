@@ -1,0 +1,32 @@
+.vc {
+    display : flex; 
+    align-items : center; 
+}
+
+.hc {
+    display : flex; 
+    justify-content : center; 
+}
+
+.cc {
+    display : flex; 
+    justify-content : center; 
+    align-items : center; 
+}
+
+.c-vc {
+    display : flex; 
+    flex-direction : column;
+    justify-content : center; 
+}
+
+.c-hc {
+    display : flex; 
+    flex-direction : column;
+    align-items : center; 
+}
+
+.flex-c { 
+    display : flex; 
+    flex-direction : column; 
+}

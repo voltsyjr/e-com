@@ -1,0 +1,34 @@
+/*flex utilities*/
+// use display : flex to use them 
+@mixin cc {
+    @include vc(false); 
+    @include hc(false); 
+} 
+
+@mixin vc($is-col : false) {
+    display: flex; 
+    @if($is-col) {
+        justify-content: center;
+    } @else {
+        align-items : center; 
+    }
+}
+
+@mixin hc($is-col : false) {
+    display: flex; 
+    @if($is-col) {
+        align-items : center;
+    } @else {
+        justify-content : center; 
+    }
+}
+
+@mixin pdh($val) {
+    padding-left : $val; 
+    padding-right : $val; 
+}
+
+@mixin pdv($val) {
+    padding-top : $val; 
+    padding-bottom : $val; 
+}

@@ -1,0 +1,76 @@
+@use "../../global/bundle.scss" as *;
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.container {
+  @include pdh($reff);
+  @include vc;
+  flex-direction: column;
+  padding-top: 67px;
+  padding-bottom : 200px; 
+
+  .heading {
+    animation-name: fadeInUp;
+    animation-duration: 0.5s;
+    text-align: center;
+  }
+
+  .cta-wrapper {
+    animation-name: fadeInUp;
+    animation-duration: 0.5s;
+  }
+
+  .subheading {
+    animation-name: fadeInUp;
+    animation-duration: 0.5s;
+    font-size: 20px;
+    margin-bottom: 26px;
+  }
+
+  .pitch {
+    animation-name: fadeInUp;
+    animation-duration: 0.5s;
+    width: 80%;
+    text-align: center;
+    margin-bottom: 26px;
+  }
+
+  .break {
+    width: 70%;
+    border: 0.2px solid grey;
+    margin-bottom: 42px;
+  }
+
+  .prodZone {
+    width: 100%;
+    @include pdh($reff);
+    .zoneHeading {
+      margin-bottom: 13px;
+    }
+  }
+
+  .option-list-container {
+    height: calc( $btn-big + 5px);
+    // background-color: yellow;
+    overflow: hidden;
+    position: relative;
+  }
+  .scrollLabel {
+    text-align: center;
+    color : gray; 
+    padding : 18px; 
+    // text-decoration-line:underline;
+    // text-decoration-color: gray;
+    // text-decoration-style: dotted;
+  }
+}

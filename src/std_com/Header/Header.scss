@@ -1,0 +1,24 @@
+@use "../../global/vars" as g; 
+@use "../../global/mixins" as *; 
+
+.header-container {
+    /* global styles */
+    width : 100%; 
+    border-bottom : 0.7px solid rgb(136, 136, 136); 
+    height : 70px; 
+    @include pdh(g.$reff); 
+    @media (min-width : g.$s) {
+        @include pdh(g.$reff * 2); 
+        height : 70px; 
+    }
+    @media (min-width : g.$m) {
+        @include pdh(g.$reff * 3); 
+    }
+    @media (min-width : g.$l) {
+        @include pdh(g.$reff * 5); 
+    }
+}
+
+.logo {
+    transform : scale(0.9)
+}
