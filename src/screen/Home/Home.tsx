@@ -35,7 +35,7 @@ function Home() {
         <div className="break" />
         <div className="prodZone">
           <h2 className="display zoneHeading">Featured Products</h2>
-          {/* get the option list in a div that is scrollable */}
+          
           <motion.div
             className="option-list-container"
             animate={showOptions ? { height: "fit-content" } : {}}
