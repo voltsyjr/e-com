@@ -55,7 +55,6 @@ function GetRelativeVal(initialIndex: number, relativeIdentifier: string) {
   // so the first placement will be via the PlaceHighlightMover as described below 
   // further to which this function will work fine 
   if (!RelativeDOMRect) {
-    console.log('found null'); 
     return null; 
   }
 
@@ -72,7 +71,8 @@ function GetRelativeVal(initialIndex: number, relativeIdentifier: string) {
 
   const res = { top: top + "px", left: left + "px" };
 
-  console.log(res, initialPosition, RelativeDOMRect);
+  // for debug 
+  // console.log(res, initialPosition, RelativeDOMRect);
 
   return res;
 }
@@ -91,6 +91,7 @@ function PlaceHighlightMover(
   if (Highlight) {
     Highlight.style.top = top;
     Highlight.style.left = left;
+    // for debug 
     // console.log("done");
   }
 }
