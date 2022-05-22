@@ -1,24 +1,44 @@
-@use "../../../global/bundle.scss" as *; 
+@use "../../../global/bundle.scss" as *;
 
 .navContainer {
-    width : 100%; 
-    height: 70px; 
-    position: fixed;
-    bottom : -100%;
-    left : 0;  
-    background-color: white;
-    border-top: 0.5px solid #9f9f9f;
-    display : flex; 
-    justify-content : space-around; 
-    align-items : center;
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  border-top: 0.5px solid #9f9f9f;
+  background-color: white;
+  z-index: 1;
+}
+
+.navContainer-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .icon-container {
-    width: 50px; 
-    height : 50px; 
-    @include cc; 
-    * {
-        width : 30px; 
-        height : 30px; 
-    }
+  width: 50px;
+  height: 50px;
+  @include cc;
+  * {
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+  }
+}
+
+.icon-container-mover {
+  width: 50px;
+  height: 50px;
+  background-color: #febbff66;
+  border-radius: 10px;
+  position: absolute;
+  top : 0; 
+  left : 0; 
+  z-index: 0;
 }
