@@ -12,6 +12,8 @@ import { ReactComponent as Sale } from "../../../asset/nav-icons/Sale.svg";
     2. notice the conditional return of jsx from the function
 */
 
+// const showOnTop = new Event('showOnTop');
+
 function RegisterWindowScroll(
   setShowBottomNav: React.Dispatch<React.SetStateAction<boolean>>
 ) {
@@ -28,6 +30,7 @@ function RegisterWindowScroll(
         ? window.scrollY
         : lastScroll;
   };
+
   return () => {
     window.onscroll = () => {};
   };
@@ -42,12 +45,23 @@ function LabelPositions() {
   return positions;
 }
 
-function GetRelativeVal(initialPosition: DOMRect, relativeIdentifier: string) {
+function GetRelativeVal(initialIndex: number, relativeIdentifier: string) {
   // initial position of element to relate
   const RelativeDOMRect = document
     .querySelector(relativeIdentifier)
     ?.getBoundingClientRect();
-  if (!RelativeDOMRect) return null;
+  
+  // before first render it will be null
+  // so the first placement will be via the PlaceHighlightMover as described below 
+  // further to which this function will work fine 
+  if (!RelativeDOMRect) {
+    console.log('found null'); 
+    return null; 
+  }
+
+  let ItemsDOMRect = LabelPositions();
+
+  const initialPosition = ItemsDOMRect[initialIndex];
 
   // rectifying the initial position
   let top = initialPosition.top;
@@ -56,11 +70,15 @@ function GetRelativeVal(initialPosition: DOMRect, relativeIdentifier: string) {
   let left = initialPosition.left;
   left -= RelativeDOMRect.left;
 
-  return { top: top + "px", left: left + "px" };
+  const res = { top: top + "px", left: left + "px" };
+
+  console.log(res, initialPosition, RelativeDOMRect);
+
+  return res;
 }
 
 function PlaceHighlightMover(
-  initialPosition: DOMRect,
+  initialPosition: number,
   identifier: string,
   relativeIdentifier: string
 ) {
@@ -77,6 +95,7 @@ function PlaceHighlightMover(
   }
 }
 
+//* component
 function BottomNav() {
   //* statics
   let paths = [<ShoppingCart />, <User />, <Dandelion />, <Sale />];
@@ -85,29 +104,21 @@ function BottomNav() {
   const [showBottomNav, setShowBottomNav] = useState(true);
   const [currSelection, setCurrSelection] = useState(0);
   const [isFirstRender, setIsFirstRender] = useState(true);
-  const [positions, setPositions] = useState([]); 
+  const [positions, setPositions] = useState([]);
 
   //* effects
   useEffect(() => {
     // effects and their callbacks
     const cbWin = RegisterWindowScroll(setShowBottomNav);
 
-    // state initializations 
-    setPositions(prev => {
-      const newPositions = LabelPositions(); 
-      // placing the slider 
-      PlaceHighlightMover(
-        newPositions[currSelection],
-        ".icon-container-mover",
-        ".navContainer-wrapper"
-      );
-      return newPositions;
-    }); 
-    // setIsFirstRender(false);
+    // first placement
+    PlaceHighlightMover(
+      currSelection,
+      ".icon-container-mover",
+      ".navContainer-wrapper"
+    );
 
-    
-
-    // registering cleanups 
+    // registering cleanups
     return () => {
       cbWin();
     };
@@ -125,18 +136,7 @@ function BottomNav() {
           <motion.div
             className="icon-container-mover"
             animate={
-              isFirstRender
-                ? {}
-                : {
-                    top: GetRelativeVal(
-                      positions[currSelection],
-                      ".navContainer-wrapper"
-                    )?.top,
-                    left: GetRelativeVal(
-                      positions[currSelection],
-                      ".navContainer-wrapper"
-                    )?.left
-                  }
+              GetRelativeVal(currSelection, ".navContainer")
             }
           ></motion.div>
           {paths.map((val, index) => (
@@ -145,7 +145,7 @@ function BottomNav() {
               key={index}
               onClick={() => {
                 if (currSelection !== index) setCurrSelection(index);
-                if(isFirstRender === true) setIsFirstRender(false); 
+                // if (isFirstRender === true) setIsFirstRender(false);
               }}
             >
               {val}
