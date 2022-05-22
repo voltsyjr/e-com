@@ -39,7 +39,6 @@ function LabelPositions() {
   );
   let positions: DOMRect[] = [];
   elements.forEach((val) => positions.push(val.getBoundingClientRect()));
-  console.log(positions);
   return positions;
 }
 
@@ -57,7 +56,7 @@ function GetRelativeVal(initialPosition: DOMRect, relativeIdentifier: string) {
   let left = initialPosition.left;
   left -= RelativeDOMRect.left;
 
-  return {top, left}; 
+  return { top: top + "px", left: left + "px" };
 }
 
 function PlaceHighlightMover(
@@ -65,46 +64,54 @@ function PlaceHighlightMover(
   identifier: string,
   relativeIdentifier: string
 ) {
+  const rVal = GetRelativeVal(initialPosition, relativeIdentifier);
+  if (rVal === null) return null;
+  let { top, left } = rVal;
 
-  const rVal = GetRelativeVal(initialPosition, relativeIdentifier); 
-  if(rVal === null) return null; 
-  let {top, left} = rVal; 
-  
   // applying changes
   const Highlight = document.querySelector(identifier) as HTMLElement;
   if (Highlight) {
-    Highlight.style.top = top + "px";
-    Highlight.style.left = left + "px";
-    console.log("done");
+    Highlight.style.top = top;
+    Highlight.style.left = left;
+    // console.log("done");
   }
 }
 
 function BottomNav() {
   //* statics
   let paths = [<ShoppingCart />, <User />, <Dandelion />, <Sale />];
-  let positions = null;
 
   //* states
   const [showBottomNav, setShowBottomNav] = useState(true);
   const [currSelection, setCurrSelection] = useState(0);
+  const [isFirstRender, setIsFirstRender] = useState(true);
+  const [positions, setPositions] = useState([]); 
 
   //* effects
   useEffect(() => {
     // effects and their callbacks
     const cbWin = RegisterWindowScroll(setShowBottomNav);
+
+    // state initializations 
+    setPositions(prev => {
+      const newPositions = LabelPositions(); 
+      // placing the slider 
+      PlaceHighlightMover(
+        newPositions[currSelection],
+        ".icon-container-mover",
+        ".navContainer-wrapper"
+      );
+      return newPositions;
+    }); 
+    // setIsFirstRender(false);
+
+    
+
+    // registering cleanups 
     return () => {
       cbWin();
     };
   }, []);
-
-  useEffect(() => {
-    positions = LabelPositions();
-    PlaceHighlightMover(
-      positions[currSelection],
-      ".icon-container-mover",
-      ".navContainer-wrapper"
-    );
-  })
 
   //* rendering
   if (showBottomNav)
@@ -115,14 +122,32 @@ function BottomNav() {
         transition={{ duration: 0.3 }}
       >
         <div className="navContainer-wrapper">
-          <motion.div className="icon-container-mover" animate={
-            {}
-          } ></motion.div>
+          <motion.div
+            className="icon-container-mover"
+            animate={
+              isFirstRender
+                ? {}
+                : {
+                    top: GetRelativeVal(
+                      positions[currSelection],
+                      ".navContainer-wrapper"
+                    )?.top,
+                    left: GetRelativeVal(
+                      positions[currSelection],
+                      ".navContainer-wrapper"
+                    )?.left
+                  }
+            }
+          ></motion.div>
           {paths.map((val, index) => (
-            <div className="icon-container" key={index} onClick={() => {
-              if(currSelection !== index) 
-                setCurrSelection(index); 
-            }}>
+            <div
+              className="icon-container"
+              key={index}
+              onClick={() => {
+                if (currSelection !== index) setCurrSelection(index);
+                if(isFirstRender === true) setIsFirstRender(false); 
+              }}
+            >
               {val}
             </div>
           ))}
