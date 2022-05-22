@@ -18,7 +18,7 @@ function RegisterWindowScroll(
   setShowBottomNav: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   let lastScroll = 0;
-  window.onscroll = () => {
+  window.onscroll = (e: Event) => {
     const thresh = 0;
     if (lastScroll - window.scrollY < -thresh) {
       setShowBottomNav(true);
@@ -31,8 +31,18 @@ function RegisterWindowScroll(
         : lastScroll;
   };
 
+  window.ondblclick = () => {
+    setShowBottomNav(true);
+  };
+
+  window.onclick = () => {
+    setShowBottomNav(true);
+  };
+
   return () => {
     window.onscroll = () => {};
+    window.ondblclick = () => {};
+    window.onclick = () => {};
   };
 }
 
@@ -50,12 +60,12 @@ function GetRelativeVal(initialIndex: number, relativeIdentifier: string) {
   const RelativeDOMRect = document
     .querySelector(relativeIdentifier)
     ?.getBoundingClientRect();
-  
+
   // before first render it will be null
-  // so the first placement will be via the PlaceHighlightMover as described below 
-  // further to which this function will work fine 
+  // so the first placement will be via the PlaceHighlightMover as described below
+  // further to which this function will work fine
   if (!RelativeDOMRect) {
-    return null; 
+    return null;
   }
 
   let ItemsDOMRect = LabelPositions();
@@ -71,7 +81,7 @@ function GetRelativeVal(initialIndex: number, relativeIdentifier: string) {
 
   const res = { top: top + "px", left: left + "px" };
 
-  // for debug 
+  // for debug
   // console.log(res, initialPosition, RelativeDOMRect);
 
   return res;
@@ -91,8 +101,19 @@ function PlaceHighlightMover(
   if (Highlight) {
     Highlight.style.top = top;
     Highlight.style.left = left;
-    // for debug 
+    // for debug
     // console.log("done");
+  }
+}
+
+function VibrateOnClick() {
+  // enable vibration support
+  navigator.vibrate =
+    navigator.vibrate ;
+
+  if (navigator.vibrate) {
+    // vibration API supported
+    navigator.vibrate(50);
   }
 }
 
@@ -112,18 +133,20 @@ function BottomNav() {
     // effects and their callbacks
     const cbWin = RegisterWindowScroll(setShowBottomNav);
 
+    // registering cleanups
+    return () => {
+      cbWin();
+    };
+  }, []);
+
+  useEffect(() => {
     // first placement
     PlaceHighlightMover(
       currSelection,
       ".icon-container-mover",
       ".navContainer-wrapper"
     );
-
-    // registering cleanups
-    return () => {
-      cbWin();
-    };
-  }, []);
+  });
 
   //* rendering
   if (showBottomNav)
@@ -136,9 +159,7 @@ function BottomNav() {
         <div className="navContainer-wrapper">
           <motion.div
             className="icon-container-mover"
-            animate={
-              GetRelativeVal(currSelection, ".navContainer")
-            }
+            animate={GetRelativeVal(currSelection, ".navContainer")}
           ></motion.div>
           {paths.map((val, index) => (
             <div
@@ -147,6 +168,7 @@ function BottomNav() {
               onClick={() => {
                 if (currSelection !== index) setCurrSelection(index);
                 // if (isFirstRender === true) setIsFirstRender(false);
+                VibrateOnClick(); 
               }}
             >
               {val}
