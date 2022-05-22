@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./BottomNav.scss";
 import { motion } from "framer-motion";
+import {ReactComponent as ShoppingCart} from '../../../asset/nav-icons/Shopping-Cart.svg'; 
+import {ReactComponent as User} from '../../../asset/nav-icons/User.svg'; 
+import {ReactComponent as Dandelion} from '../../../asset/nav-icons/Dandelion.svg'; 
+import {ReactComponent as Sale} from '../../../asset/nav-icons/Sale.svg'; 
+
 
 /*
   notes 
@@ -24,9 +29,13 @@ function BottomNav() {
           ? window.scrollY
           : lastScroll;
     };
-    return () => {window.onscroll = () => {}}; 
+    return () => {
+      window.onscroll = () => {};
+    };
   }, []);
 
+  // let paths = [ShoppingCart, User, Dandelion, Sale]; 
+  let paths = [<ShoppingCart/>, <User/>, <Dandelion/>, <Sale/>]
   if (showBottomNav)
     return (
       <motion.div
@@ -34,7 +43,12 @@ function BottomNav() {
         animate={showBottomNav ? { bottom: 0 } : {}}
         transition={{ duration: 0.3 }}
       >
-
+        {paths.map((val, index) => (
+          <div className="icon-container" key={index}>
+            {val}
+          </div>
+        ))}
+        
       </motion.div>
     );
   else return <></>;
