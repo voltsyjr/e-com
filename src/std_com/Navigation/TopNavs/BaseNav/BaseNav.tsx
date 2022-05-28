@@ -3,6 +3,9 @@ import sytles from "./BaseNav.module.scss";
 import { motion } from "framer-motion";
 
 function BaseNav() {
+
+  
+
   return (
     <>
       <div className={sytles.navOverlay}></div>
