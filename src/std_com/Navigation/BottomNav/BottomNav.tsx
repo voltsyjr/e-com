@@ -17,6 +17,8 @@ import { ReactComponent as Sale } from "../../../asset/nav-icons/Sale.svg";
 function RegisterWindowScroll(
   setShowBottomNav: React.Dispatch<React.SetStateAction<boolean>>
 ) {
+
+  // scroll 
   let lastScroll = 0;
   window.onscroll = (e: Event) => {
     const thresh = 0;
@@ -31,6 +33,7 @@ function RegisterWindowScroll(
         : lastScroll;
   };
 
+  // assisted click shows
   window.ondblclick = () => {
     setShowBottomNav(true);
   };
@@ -39,6 +42,7 @@ function RegisterWindowScroll(
     setShowBottomNav(true);
   };
 
+  // removing listeners 
   return () => {
     window.onscroll = () => {};
     window.ondblclick = () => {};
@@ -125,8 +129,6 @@ function BottomNav() {
   //* states
   const [showBottomNav, setShowBottomNav] = useState(true);
   const [currSelection, setCurrSelection] = useState(0);
-  const [isFirstRender, setIsFirstRender] = useState(true);
-  const [positions, setPositions] = useState([]);
 
   //* effects
   useEffect(() => {
@@ -137,7 +139,7 @@ function BottomNav() {
     return () => {
       cbWin();
     };
-  }, []);
+  }, []);   
 
   useEffect(() => {
     // first placement
@@ -167,7 +169,6 @@ function BottomNav() {
               key={index}
               onClick={() => {
                 if (currSelection !== index) setCurrSelection(index);
-                // if (isFirstRender === true) setIsFirstRender(false);
                 VibrateOnClick(); 
               }}
             >

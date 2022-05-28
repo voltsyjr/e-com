@@ -16,7 +16,6 @@ function Home() {
 
   return (
     <>
-      <stdCom.BottomNav />
       <div className="container">
         <h1 className="display heading">Want to look your best?</h1>
         <p className="subheading extralight">We got you covered</p>
@@ -54,6 +53,8 @@ function Home() {
           </p>
         </div>
       </div>
+      <stdCom.BaseNav/>
+      <stdCom.BottomNav />
     </>
   );
 }

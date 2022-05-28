@@ -1,0 +1,18 @@
+@use '../../../../global/bundle.scss' as *; 
+
+.navOverlay {
+  position : fixed; 
+  width : 100%; 
+  height : 100%; 
+  background-color: rgba(0, 0, 0, 0.24);
+  left : 0; 
+  top : 0; 
+}
+
+.navContainer {
+  position : fixed; 
+  background-color: purple;
+  z-index: 200;
+  left : 0; 
+  top : 0; 
+}
