@@ -1,0 +1,11 @@
+//* component
+function BottomNav() {
+  //* refs
+
+  //* statics
+
+  //* states
+
+  //* effects
+
+  //* rendering

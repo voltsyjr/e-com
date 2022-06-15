@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import "./BottomNav.scss";
 import { motion } from "framer-motion";
 import { ReactComponent as ShoppingCart } from "../../../asset/nav-icons/Shopping-Cart.svg";
 import { ReactComponent as User } from "../../../asset/nav-icons/User.svg";
 import { ReactComponent as Dandelion } from "../../../asset/nav-icons/Dandelion.svg";
 import { ReactComponent as Sale } from "../../../asset/nav-icons/Sale.svg";
-
+import { NavContextObject } from "../../_imports";
 /*
   notes 
     1. notice the lastScroll in the useEffect, its state is saved in the function that is recorded by the window object 
@@ -17,8 +17,7 @@ import { ReactComponent as Sale } from "../../../asset/nav-icons/Sale.svg";
 function RegisterWindowScroll(
   setShowBottomNav: React.Dispatch<React.SetStateAction<boolean>>
 ) {
-
-  // scroll 
+  // scroll
   let lastScroll = 0;
   window.onscroll = (e: Event) => {
     const thresh = 0;
@@ -42,7 +41,7 @@ function RegisterWindowScroll(
     setShowBottomNav(true);
   };
 
-  // removing listeners 
+  // removing listeners
   return () => {
     window.onscroll = () => {};
     window.ondblclick = () => {};
@@ -112,8 +111,7 @@ function PlaceHighlightMover(
 
 function VibrateOnClick() {
   // enable vibration support
-  navigator.vibrate =
-    navigator.vibrate ;
+  navigator.vibrate = navigator.vibrate;
 
   if (navigator.vibrate) {
     // vibration API supported
@@ -123,14 +121,26 @@ function VibrateOnClick() {
 
 //* component
 function BottomNav() {
+  //* refs
+  const myRef = useRef(null);
+
   //* statics
   let paths = [<ShoppingCart />, <User />, <Dandelion />, <Sale />];
+  const navContextData = useContext(NavContextObject.NavContext);
 
   //* states
   const [showBottomNav, setShowBottomNav] = useState(true);
   const [currSelection, setCurrSelection] = useState(0);
+  const [overRide, setOverRide] = useState(false);
 
   //* effects
+  useEffect(() => {
+    navContextData.setRegisteredNavs((prev) => ({
+      ...prev,
+      BottomNav: myRef.current.getBoundingClientRect()
+    }));
+  }, []);
+
   useEffect(() => {
     // effects and their callbacks
     const cbWin = RegisterWindowScroll(setShowBottomNav);
@@ -139,7 +149,7 @@ function BottomNav() {
     return () => {
       cbWin();
     };
-  }, []);   
+  }, []);
 
   useEffect(() => {
     // first placement
@@ -151,10 +161,12 @@ function BottomNav() {
   });
 
   //* rendering
-  if (showBottomNav)
+  if (showBottomNav || overRide)
     return (
       <motion.div
+      ref={myRef}
         className="navContainer"
+        id="bottom-nav"
         animate={showBottomNav ? { bottom: 0 } : {}}
         transition={{ duration: 0.3 }}
       >
@@ -169,7 +181,7 @@ function BottomNav() {
               key={index}
               onClick={() => {
                 if (currSelection !== index) setCurrSelection(index);
-                VibrateOnClick(); 
+                VibrateOnClick();
               }}
             >
               {val}

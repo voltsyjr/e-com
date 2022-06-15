@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useState } from "react";
 
-function NavigationContexts() {
+import { types } from "../std_com/_imports";
+
+const NavContext = React.createContext(null);
+
+function NavContextProvider({ children }: { children: React.ReactNode }) {
+
+  const [registeredNavs, setRegisteredNavs] = useState({});
+  
   return (
-    <div>NavigationContexts</div>
-  )
+    <NavContext.Provider value={{ registeredNavs, setRegisteredNavs }}>
+      {children}
+    </NavContext.Provider>
+  );
 }
 
-export default NavigationContexts
+export { NavContextProvider, NavContext };

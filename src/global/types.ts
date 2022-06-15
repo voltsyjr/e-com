@@ -16,7 +16,8 @@ class buttonParam {
     }
 };
 
+
 export {
     type optionButtonProp, 
-    buttonParam
+    buttonParam, 
 }

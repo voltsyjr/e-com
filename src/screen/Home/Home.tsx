@@ -53,8 +53,8 @@ function Home() {
           </p>
         </div>
       </div>
-      <stdCom.BaseNav/>
       <stdCom.BottomNav />
+      <stdCom.BaseNav/>
     </>
   );
 }
