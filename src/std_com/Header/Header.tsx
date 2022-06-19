@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef } from "react";
 import "./Header.scss";
 
 import { ReactComponent as Logo } from "../../asset/Logo.svg";
+
 import { NavContextObject } from "../_imports";
 
 function Header() {

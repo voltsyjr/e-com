@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import sytles from "./BaseNav.module.scss";
+import styles from "./BaseNav.module.scss";
 import { motion } from "framer-motion";
 import { NavContextObject } from "../../../_imports";
 
@@ -30,15 +30,23 @@ function BaseNav() {
     }
   });
 
+  useEffect(() => {
+    const body = document.body as HTMLElement; 
+    body.classList.toggle(styles.stop_scrolling); 
+    return () => body.classList.remove(styles.stop_scrolling); 
+  })
   
   return (
-    <>
-      {/* <div className={sytles.navOverlay} id="base-nav"></div> */}
-      <motion.div className={sytles.navContainer} style={{
+    <div id="base-nav">
+      <div className={styles.navOverlay} style={{
+        height : posInfo.height, 
+        top : posInfo.top 
+      }}></div>
+      <motion.div className={styles.navContainer} style={{
         height : posInfo.height, 
         top : posInfo.top
       }}></motion.div>
-    </>
+    </div>
   );
 }
 
