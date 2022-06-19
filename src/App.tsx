@@ -2,14 +2,17 @@ import React from "react";
 import "./App.scss";
 import { Home } from "./screen/exports";
 import { Header } from "./std_com/_exports";
-import {NavContext, NavContextProvider} from './contexts/NavigationContexts'; 
+import { NavContextProvider } from "./contexts/NavigationContexts";
+import { ToggleNavSlideProvider } from "./contexts/ToggleNavSlideContext";
 
 function App() {
   return (
-    <NavContextProvider>
-      <Header />
-      <Home />
-    </NavContextProvider>
+    <ToggleNavSlideProvider>
+      <NavContextProvider>
+        <Header />
+        <Home />
+      </NavContextProvider>
+    </ToggleNavSlideProvider>
   );
 }
 

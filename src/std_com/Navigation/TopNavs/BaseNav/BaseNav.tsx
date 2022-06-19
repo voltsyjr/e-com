@@ -1,28 +1,31 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "./BaseNav.module.scss";
 import { motion } from "framer-motion";
-import { NavContextObject } from "../../../_imports";
+import { NavContextObject, ToggleNavContextObject } from "../../../_imports";
 
-/*TODO 
-  1. format the code as per component creation practices 
-*/
 
+//* component
 function BaseNav() {
+  //* refs
 
-  const [show, setShow] = useState(true);
+  //* statics
+  const { show } = useContext(ToggleNavContextObject.NavSlideContext);
   const { registeredNavs } = useContext(NavContextObject.NavContext);
+
+  //* states
   const [posInfo, setPosInfo] = useState({ top: 0, height: 0 });
-  
+
+  //* effects
   useEffect(() => {
     let heightOffset = 0;
     if (Object.values(registeredNavs).length && !posInfo.height) {
-      let myArr = Object.values(registeredNavs); 
+      let myArr = Object.values(registeredNavs);
       for (let i of myArr) {
         //@ts-ignore
-        heightOffset +=  i.height; 
+        heightOffset += i.height;
       }
-      //! may not work 
-      //? works for now 
+      //! may not work
+      //? works for now
       setPosInfo({
         height: window.screen.height - heightOffset,
         top: registeredNavs.Header.height,
@@ -31,21 +34,42 @@ function BaseNav() {
   });
 
   useEffect(() => {
-    const body = document.body as HTMLElement; 
-    body.classList.toggle(styles.stop_scrolling); 
-    return () => body.classList.remove(styles.stop_scrolling); 
-  })
-  
+    const body = document.body as HTMLElement;
+    if (show) {
+      body.classList.toggle(styles.stop_scrolling);
+    } else {
+      body.classList.remove(styles.stop_scrolling); 
+    }
+  }, [show]);
+
+  //* callbacks and handlers
+
+  //* rendering
   return (
     <div id="base-nav">
-      <div className={styles.navOverlay} style={{
-        height : posInfo.height, 
-        top : posInfo.top 
-      }}></div>
-      <motion.div className={styles.navContainer} style={{
-        height : posInfo.height, 
-        top : posInfo.top
-      }}></motion.div>
+      {show && (
+        <div
+          className={styles.navOverlay}
+          style={{
+            height: posInfo.height,
+            top: posInfo.top,
+          }}
+        />
+      )}
+      <motion.div
+        className={styles.navContainer}
+        style={{
+          height: posInfo.height,
+          top: posInfo.top,
+        }}
+        animate={
+          show
+            ? {
+                left: 0,
+              }
+            : {}
+        }
+      ></motion.div>
     </div>
   );
 }

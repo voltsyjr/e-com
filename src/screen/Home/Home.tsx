@@ -29,9 +29,11 @@ function Home() {
             // get the right com animated
             // get a prop to override the button container shadow
             rightCom={() => <ArrowRight />}
+            onClick={(e) => {console.log("clicked")}}
+            
           />
         </div>
-        <div className="break" />
+        <div className="break"/>
         <div className="prodZone">
           <h2 className="display zoneHeading">Featured Products</h2>
           

@@ -17,8 +17,14 @@
     @media (min-width : g.$l) {
         @include pdh(g.$reff * 5); 
     }
+    justify-content : space-between; 
 }
 
 .logo {
-    transform : scale(0.9)
+    transform : scale(0.9); 
+}
+
+.ham-menu { 
+    transform: scale(0.6)  translateX(30px); 
+    padding : 10px 30px; 
 }
