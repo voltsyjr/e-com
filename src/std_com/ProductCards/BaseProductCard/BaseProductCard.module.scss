@@ -1,0 +1,79 @@
+@use "../../../global/bundle.scss" as *; 
+
+.BaseProductCardContainer{
+  width : 294px; 
+  height : 456px; 
+  background: grey;
+  margin : 0 auto; 
+  display : flex; 
+  flex-direction : column;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.imageBox {
+  height : 358px; 
+  width : 100%; 
+  background-color: pink;
+}
+
+.descriptionBox {
+  flex : 1; 
+  background-color: rgb(255, 255, 255);
+  padding : 0 18px; 
+  @include vc; 
+}
+
+.descriptionWrapper {
+  width : 100%; 
+  justify-content: space-between;
+}
+
+.detailsWrapper {
+  width: calc(100% - 65px);
+}
+
+.iconRow {
+  margin-left : 13px; 
+}
+
+.star_icon {
+  transform: translateY(-2px);
+  margin-right: 4px;
+  fill : #febbff; 
+  width : 18px;  
+} 
+
+.star-icon:last-child {
+  margin-right : 0; 
+}
+
+.shopping_cart_icon {
+  width : 50px; 
+  height : 50px; 
+  background : #febbff; 
+  display : flex; 
+  justify-content: center; 
+  align-items : center; 
+  border-radius : 200px; 
+  flex-shrink:  0;
+}
+
+.shopping_cart_icon * {
+  width : 40%; 
+  transform : translateX(-1px); 
+}
+
+.headingWrapper {
+  width : 100%; 
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space : nowrap; 
+}
+
+.heading {
+  font-size: 18px;
+}
+
+.subHeading {
+  font-size : 14px; 
+}

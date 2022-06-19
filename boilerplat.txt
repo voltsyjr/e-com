@@ -8,4 +8,6 @@ function BottomNav() {
 
   //* effects
 
+  //* callbacks and handlers 
+
   //* rendering

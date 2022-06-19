@@ -6,14 +6,21 @@ import { stdCom, types } from "../_imports";
 import { motion } from "framer-motion";
 
 function Home() {
-  // screen states
-  const [currentSelected, setCurrentSelected] = useState(-1);
-  const [showOptions, setShowOptions] = useState(false);
+  //* refs 
 
-  // the option parameter list
+  //* statics 
   const messageList = ["Lehnga", "Kurti", "Saari", "Leggins", "Ghaghra"];
   const buttonParamList = messageList.map((val) => new types.buttonParam(val));
 
+  //* states 
+  const [currentSelected, setCurrentSelected] = useState(-1);
+  const [showOptions, setShowOptions] = useState(false);
+
+  //* effects 
+
+  //* callbacks and handlers 
+
+  //* rendering 
   return (
     <>
       <div className="container">
@@ -53,6 +60,7 @@ function Home() {
           >
             see all categories
           </p>
+          <stdCom.BaseProductCard/>
         </div>
       </div>
       <stdCom.BottomNav />
