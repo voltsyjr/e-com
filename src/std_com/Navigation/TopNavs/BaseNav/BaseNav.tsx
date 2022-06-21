@@ -27,7 +27,7 @@ function BaseNav() {
       //! may not work
       //? works for now
       setPosInfo({
-        height: window.screen.height - heightOffset,
+        height: window.innerHeight - heightOffset,
         top: registeredNavs.Header.height,
       });
     }
@@ -54,6 +54,8 @@ function BaseNav() {
             height: posInfo.height,
             top: posInfo.top,
           }}
+          onScroll={(e) => {e.preventDefault()}}
+          onClick ={(e) => {e.preventDefault()}}
         />
       )}
       <motion.div

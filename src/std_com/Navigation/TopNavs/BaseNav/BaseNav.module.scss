@@ -21,6 +21,8 @@
 }
 
 .stop_scrolling {
-  height: 100%;
-  overflow: hidden;
+  //! previously set 
+  // height: 100%;
+  // overflow: hidden;
+  position : fixed; 
 }

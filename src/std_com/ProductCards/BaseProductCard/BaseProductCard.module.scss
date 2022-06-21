@@ -19,7 +19,7 @@
 .descriptionBox {
   flex : 1; 
   background-color: rgb(255, 255, 255);
-  padding : 0 18px; 
+  padding : 29px 18px; 
   @include vc; 
 }
 
@@ -32,15 +32,11 @@
   width: calc(100% - 65px);
 }
 
-.iconRow {
-  margin-left : 13px; 
-}
-
 .star_icon {
   transform: translateY(-2px);
   margin-right: 4px;
   fill : #febbff; 
-  width : 18px;  
+  width : 20px;  
 } 
 
 .star-icon:last-child {
@@ -68,12 +64,17 @@
   overflow: hidden;
   word-wrap: break-word;
   white-space : nowrap; 
+  margin-bottom : 5px; 
 }
 
 .heading {
   font-size: 18px;
 }
 
-.subHeading {
+.subheading {
   font-size : 14px; 
+}
+
+.price_info_row {
+  justify-content:  space-between;
 }

@@ -7,6 +7,7 @@ import styles from "./BaseProductCard.module.scss";
 // other imports
 import { ReactComponent as Star } from "../../../asset/Star.svg";
 import { ReactComponent as AddCart } from "../../../asset/Cart.svg";
+import dummyImg from '../../../asset/images/fImageDummy.png'; 
 
 //* compoenet
 function BaseProductCard() {
@@ -23,7 +24,9 @@ function BaseProductCard() {
   //* rendering
   return (
     <div className={styles.BaseProductCardContainer}>
-      <div className={styles.imageBox}></div>
+      <div className={styles.imageBox}>
+        <img src={dummyImg} />
+      </div>
 
       <div className={styles.descriptionBox}>
         <div className={styles.descriptionWrapper + " row"}>
@@ -36,7 +39,7 @@ function BaseProductCard() {
               </p>
             </div>
 
-            <div className="row">
+            <div className={styles.price_info_row + " row"}>
               <p className={styles.subheading + " light montserrat"}>Rs. 2000</p>
               <div className={styles.iconRow + " row"}>
                 <Star className={styles.star_icon} />
