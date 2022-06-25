@@ -8,9 +8,12 @@ import styles from "./BaseProductCard.module.scss";
 import { ReactComponent as Star } from "../../../asset/Star.svg";
 import { ReactComponent as AddCart } from "../../../asset/Cart.svg";
 import dummyImg from '../../../asset/images/fImageDummy.png'; 
+import { types } from "../../_imports";
+
+
 
 //* compoenet
-function BaseProductCard() {
+function BaseProductCard(props : types.ProductCard) {
   //* refs
 
   //* statics
@@ -23,7 +26,7 @@ function BaseProductCard() {
 
   //* rendering
   return (
-    <div className={styles.BaseProductCardContainer}>
+    <div className={styles.BaseProductCardContainer}  style={props.style} >
       <div className={styles.imageBox}>
         <img src={dummyImg} />
       </div>
@@ -35,12 +38,12 @@ function BaseProductCard() {
 
             <div className={styles.headingWrapper} >
               <p className={styles.heading + " medium montserrat"}>
-                Peacock Greenasdfadsfdsfasdf
+                {props.desc.name}
               </p>
             </div>
 
             <div className={styles.price_info_row + " row"}>
-              <p className={styles.subheading + " light montserrat"}>Rs. 2000</p>
+              <p className={styles.subheading + " light montserrat"}>Rs. {props.desc.price}</p>
               <div className={styles.iconRow + " row"}>
                 <Star className={styles.star_icon} />
                 <Star className={styles.star_icon} />

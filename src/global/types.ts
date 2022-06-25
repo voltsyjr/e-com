@@ -16,8 +16,17 @@ class buttonParam {
     }
 };
 
+interface ProductCard {
+    imgSrc : string, 
+    desc : {
+        name : string, 
+        price : number, 
+    }, 
+    style ?: object
+}
 
 export {
     type optionButtonProp, 
     buttonParam, 
+    type ProductCard
 }

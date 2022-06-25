@@ -1,0 +1,8 @@
+@use "../../global/bundle.scss" as * ; 
+
+.SwipeableContainer {
+  display : flex; 
+  overflow-x : scroll; 
+  overflow-y : hidden; 
+  padding-bottom: 10px; 
+}

@@ -17,8 +17,6 @@
   @include vc;
   flex-direction: column;
   padding-top: 67px;
-  padding-bottom : 200px; 
-
   .heading {
     animation-name: fadeInUp;
     animation-duration: 0.5s;
@@ -73,4 +71,8 @@
     // text-decoration-color: gray;
     // text-decoration-style: dotted;
   }
+}
+
+.spacer {
+  height : 100px; 
 }

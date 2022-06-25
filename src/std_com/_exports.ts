@@ -5,6 +5,7 @@ import OptionList from "./Lists/OptionList";
 import BottomNav from "./Navigation/BottomNav/BottomNav";
 import BaseNav from "./Navigation/TopNavs/BaseNav/BaseNav";
 import BaseProductCard from "./ProductCards/BaseProductCard/BaseProductCard";
+import SwipableProductCard from "./Gestures/SwipeableProductCard";
 
 export {
     Header, 
@@ -13,5 +14,6 @@ export {
     OptionList, 
     BottomNav, 
     BaseNav, 
-    BaseProductCard
+    BaseProductCard, 
+    SwipableProductCard
 }

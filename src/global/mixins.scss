@@ -32,3 +32,13 @@
   padding-top: $val;
   padding-bottom: $val;
 }
+
+@mixin mrh($val) {
+  margin-left : $val;
+  margin-right : $val; 
+}
+
+@mixin mrv($val) {
+  margin-top : $val;
+  margin-bottom : $val; 
+}
