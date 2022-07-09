@@ -12,7 +12,7 @@ type prop = {
 /*
   supplies id, focus, action to the button redered as list 
 */
-function OptionList(prop: prop) {
+function  OptionList(prop: prop) {
   const needInvisible: boolean = prop.batch.length % 2 !== 0;
 
   return (

@@ -6,12 +6,14 @@ import React, {
 } from "react";
 import styles from "./BasePopup.module.scss";
 
+import Input from '../../input/Input'; 
+
 //* types, interfaces and classes */
 type BasePopupParams = {
   show: boolean;
 };
 
-type inputCallback = (e : React.ChangeEvent<HTMLInputElement>) => void; 
+type inputCallback = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 export class PriceRange {
   public rangeStart: number;
@@ -67,21 +69,34 @@ export function FilterWidget(
   );
 }
 
-export function PriceRangeInput(props: {
-  rangeStartCallback : inputCallback, 
-  rangeEndCallback : inputCallback
-}) {
-  return (
-    <div className="row">
-      <input
-        className={styles.inputStyles}
-        type={"number"}
-        onChange={props.rangeStartCallback}
-      ></input>
-      <p className={styles.inputSeparatorText}>to</p>
-      <input className={styles.inputStyles} type={"number"} onChange={props.rangeEndCallback}></input>
-    </div>
-  );
-}
+// export function PriceRangeInput(props: {
+//   rangeStartCallback: inputCallback;
+//   rangeEndCallback: inputCallback;
+  
+// }) {
+//   return (
+//     <div className="row">
+//       <Input
+//         // className={styles.inputStyles}
+//         // type={"number"}
+//         // onChange={props.rangeStartCallback}
+//         inputParams={{
+//           className : styles.inputStyles, 
+//           type : "number", 
+//           onChange : props.rangeStartCallback
+//         }}
+
+//       />
+//       <p className={styles.inputSeparatorText}>to</p>
+//       <Input
+//         inputParams={{
+//           className : styles.inputStyles, 
+//           type : "number", 
+//           onChange : props.rangeEndCallback
+//         }}
+//       />
+//     </div>
+//   );
+// }
 
 export {};

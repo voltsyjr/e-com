@@ -90,6 +90,10 @@ code {
   align-items : center; 
 }
 
+.plainRow {
+  display : flex; 
+}
+
 h1 {
   font-size: 32px;
   @media (min-width: $s) {

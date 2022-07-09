@@ -1,42 +1,47 @@
-import React, { InputHTMLAttributes, useEffect, useState, useRef } from "react";
+import React from "react";
 
-interface InputParams extends InputHTMLAttributes<HTMLInputElement> {
-  validatorList?: ((strInput: string, numInput?: number) => boolean)[];
-  style?: object;
-  collector?: React.SetStateAction<string>;
-}
+import styles from "Input.module.scss";
 
-const customEvent = new CustomEvent("clicked"); 
+type InputParams = {
+  inputParams: React.InputHTMLAttributes<HTMLInputElement>;
+  paraParams?: React.InputHTMLAttributes<HTMLParagraphElement>;
+  hasError: boolean;
+  err: {
+    errMessage: string[];
+    errStyles: {
+      input: React.CSSProperties;
+      para: React.CSSProperties;
+    };
+  };
+  divStyles?: React.CSSProperties;
+  width: number;
+  offset: number;
+};
 
-function Input(params: InputParams) {
-  const [inputData, setInputData] = useState<string>("");
-  const inputRef = useRef(''); 
- 
-  useEffect(() => {
-    if (params.validatorList === undefined) {
-      return () => {};
-    }
-
-    let verdict = true;
-    for (let f of params.validatorList) {
-      if (f(inputData) === false) {
-        verdict = false;
-        break;
-      }
-    }
-  }, [inputData]);
-
+function Input(props: InputParams) {
+  
   return (
-    <input
-      type={params.type}
-      onChange={(e) => setInputData(e.target.value)}
-      style={{
-        ...params.style,
-        borderBottom: "1px solid red",
-      }}
-      className={params.className}
-      value={inputData}
-    />
+    <div style={{...props.divStyles, maxWidth : props.width}}>
+      <input
+        {...props.inputParams}
+        style={
+          props.hasError ? props.err.errStyles.input : props.inputParams.style
+        }
+      />
+      {props.hasError && <div style={{ height: props.offset }} />}
+      <p
+        {...props.paraParams}
+        style={
+          props.hasError ? props.err.errStyles.para : props.paraParams?.style
+        }
+      >
+        {props.hasError ? (() => {
+          let concatenated = ""; 
+          props.err.errMessage.map(str => concatenated += str + " ")
+          return concatenated;  
+        })() : ""}
+      </p>
+    </div>
   );
 }
 

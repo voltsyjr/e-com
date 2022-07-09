@@ -1,32 +1,30 @@
-import React from 'react'
+import React from "react";
 
 type optionButtonProp = {
-    // message : string, 
-    id : number, 
-    // respondTo :? React.Dispatch<React.SetStateAction<any>>, 
-    action : (id : number) => any, 
-    children ?: React.ReactNode, 
-    focus : boolean
-}
-
-class buttonParam {
-    message : string; 
-    constructor(message : string) {
-        this.message = message; 
-    }
+  id: number;
+  action: (id: number) => any;
+  children?: React.ReactNode;
+  focus: boolean;
 };
 
-interface ProductCard {
-    imgSrc : string, 
-    desc : {
-        name : string, 
-        price : number, 
-    }, 
-    style ?: object
+class buttonParam {
+  message: string;
+  constructor(message: string) {
+    this.message = message;
+  }
 }
 
-export {
-    type optionButtonProp, 
-    buttonParam, 
-    type ProductCard
+interface ProductCard {
+  imgSrc: string;
+  desc: {
+    name: string;
+    price: number;
+  };
+  style?: object;
 }
+
+type AppliedStatesObject<S> = {
+  [keys: string]: S;
+};
+
+export { type optionButtonProp, buttonParam, type ProductCard, type AppliedStatesObject };
