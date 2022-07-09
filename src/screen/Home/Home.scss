@@ -52,9 +52,6 @@
   .prodZone {
     width: 100%;
     @include pdh($reff);
-    .zoneHeading {
-      margin-bottom: 13px;
-    }
   }
 
   .option-list-container {
@@ -70,6 +67,18 @@
     // text-decoration-line:underline;
     // text-decoration-color: gray;
     // text-decoration-style: dotted;
+  }
+}
+
+.feature-heading-row {
+  justify-content: space-between;
+  margin-left: -$reff;
+  margin-right : -2*$reff; 
+  align-items : center; 
+  margin-bottom : 13px; 
+  > h2 {
+    padding-left : $reff; 
+    height : fit-content; 
   }
 }
 

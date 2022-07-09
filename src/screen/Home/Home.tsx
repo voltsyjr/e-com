@@ -40,6 +40,7 @@ function Home() {
   //* states
   const [currentSelected, setCurrentSelected] = useState(-1);
   const [showOptions, setShowOptions] = useState(false);
+  const [showFilterPopup, setShowFilterPopup] = useState(false); 
 
   //* effects
 
@@ -68,7 +69,10 @@ function Home() {
         </div>
         <div className="break" />
         <div className="prodZone">
-          <h2 className="display zoneHeading">Featured Products</h2>
+          <div className={"feature-heading-row" +" row"}>
+            <h2 className="display zoneHeading">Featured Products</h2>
+            <stdCom.BaseLabel onClick={{}} fill={false} />
+          </div>
 
           <motion.div
             className="option-list-container"
@@ -86,15 +90,14 @@ function Home() {
           >
             see all categories
           </p>
-          <p className="montserrat regular" style={{ fontSize: 20 }}>
-            Kurti
-          </p>
-          <stdCom.SwipableProductCard data={data} />
+          <stdCom.SwipableProductCard data={data} Heading={"Kurti"} />
         </div>
       </div>
       <div className="spacer"></div>
+      <stdCom.Footer />
       <stdCom.BottomNav />
       <stdCom.BaseNav />
+      <stdCom.BasePopup/>
     </>
   );
 }

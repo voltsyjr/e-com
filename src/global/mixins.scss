@@ -1,5 +1,10 @@
 /*flex utilities*/
 
+@mixin row {
+  display : flex; 
+  align-items : center; 
+}
+
 @mixin cc {
   @include vc(false);
   @include hc(false);

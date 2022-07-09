@@ -6,6 +6,9 @@ import BottomNav from "./Navigation/BottomNav/BottomNav";
 import BaseNav from "./Navigation/TopNavs/BaseNav/BaseNav";
 import BaseProductCard from "./ProductCards/BaseProductCard/BaseProductCard";
 import SwipableProductCard from "./Gestures/SwipeableProductCard";
+import Footer from "./Footer/Footer";
+import BaseLabel from "./labels/baseLabel/baseLabel";
+import BasePopup from "./Popups/basePopup/BasePopup";
 
 export {
     Header, 
@@ -15,5 +18,8 @@ export {
     BottomNav, 
     BaseNav, 
     BaseProductCard, 
-    SwipableProductCard
+    SwipableProductCard, 
+    Footer, 
+    BaseLabel, 
+    BasePopup
 }

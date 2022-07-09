@@ -1,0 +1,23 @@
+
+.container {
+  height : 39px; 
+  width : 72px; 
+  border-radius : 100px 0 0 100px; 
+  background-color: #698aff;
+  display : flex; 
+  justify-content : center; 
+  align-items : center; 
+}
+
+.outlineStyle {
+  background-color : white; 
+  border : 1px solid #698aff; 
+  > p {
+    color : #698aff; 
+  }
+}
+
+.text {
+  color : white; 
+  font-size : 12px;
+}
