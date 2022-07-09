@@ -27,4 +27,18 @@ type AppliedStatesObject<S> = {
   [keys: string]: S;
 };
 
-export { type optionButtonProp, buttonParam, type ProductCard, type AppliedStatesObject };
+type validator = (input: any) => inputValidation;
+
+type inputValidation = {
+  hasError : boolean, 
+  errMessage : string[]
+}
+
+export {
+  type optionButtonProp,
+  buttonParam,
+  type ProductCard,
+  type AppliedStatesObject,
+  type validator, 
+  type inputValidation
+};

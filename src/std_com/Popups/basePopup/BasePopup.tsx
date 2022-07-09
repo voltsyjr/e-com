@@ -8,7 +8,15 @@ import * as coms from "./BasePopup_private";
 
 import useAppliedStates from "../../Hooks/useAppliedStates";
 
+import {
+  FormManager,
+  types,
+  validators,
+  VALIDATOR_OPTIONS,
+} from "../../_imports";
+
 function BasePopup() {
+  console.log('rendering'); 
   useEffect(() => {
     const body = document.body as HTMLElement;
     body.classList.add(styles.stopScrolling);
@@ -17,13 +25,13 @@ function BasePopup() {
 
   const [pr_as_obj, pr_as_setter] = useAppliedStates<
     coms.PriceRange,
-    { hasError: boolean; errMessage: string[] }
+    types.inputValidation
   >(new coms.PriceRange(-1, -1), {
     hasError: false,
     errMessage: [""],
   });
 
-  const priceRangeRef = useRef<coms.PriceRange>(new coms.PriceRange(-1, -1));
+  const priceRangeRef = useRef<coms.PriceRange>(new coms.PriceRange());
 
   const updateRef = (key: string) => {
     return (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +39,12 @@ function BasePopup() {
       priceRangeRef.current[key] = e.target.value;
     };
   };
+
+  const manager = new FormManager<coms.PriceRange, VALIDATOR_OPTIONS>(
+    pr_as_setter,
+    priceRangeRef,
+    validators
+  );
 
   return (
     <>
@@ -112,19 +126,8 @@ function BasePopup() {
           <coms.FilterLabels heading="Colors" />
           <button
             onClick={() => {
-              if (priceRangeRef.current.rangeEnd == -1) {
-                pr_as_setter((prev) => ({
-                  ...prev,
-                  rangeEnd: { hasError: true, errMessage: ["input is empty"] },
-                }));
-              }
-
-              if (priceRangeRef.current.rangeStart == -1) {
-                pr_as_setter((prev) => ({
-                  ...prev,
-                  rangeStart: { hasError: true, errMessage: ["input is empty"] },
-                }));
-              }
+              manager.validate('rangeEnd', [VALIDATOR_OPTIONS.isPresent]); 
+              manager.validate('rangeStart', [VALIDATOR_OPTIONS.isPresent]); 
             }}
           >
             submit

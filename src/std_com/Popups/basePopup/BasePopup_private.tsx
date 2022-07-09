@@ -16,9 +16,9 @@ type BasePopupParams = {
 type inputCallback = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 export class PriceRange {
-  public rangeStart: number;
-  public rangeEnd: number;
-  constructor(rangeStart: number, rangeEnd: number) {
+  public rangeStart: number | undefined;
+  public rangeEnd: number | undefined;
+  constructor(rangeStart?: number, rangeEnd?: number) {
     this.rangeStart = rangeStart;
     this.rangeEnd = rangeEnd;
   }
