@@ -12,6 +12,7 @@ import {
   VALIDATOR_OPTIONS,
 } from "../../_imports";
 import GeneralList from "../../Lists/GeneralList";
+import { ReactComponent as CloseIcon } from "../../../asset/icons/close-round.svg";
 
 function getStringedObject(obj: object): { [key: string]: string } {
   const ans: { [key: string]: string } = {};
@@ -21,13 +22,20 @@ function getStringedObject(obj: object): { [key: string]: string } {
   return ans;
 }
 
-function BasePopup() {
+function BasePopup({
+  setShow
+} : {
+  setShow : React.Dispatch<React.SetStateAction<boolean>>
+}) {
   useEffect(() => {
     const body = document.body as HTMLElement;
     body.classList.add(styles.stopScrolling);
     return () => body.classList.remove(styles.stopScrolling);
   });
 
+  const containerRef = useRef<HTMLDivElement>(null!); 
+  const overlayRef = useRef<HTMLDivElement>(null!); 
+  
   const isFormOk = useRef<boolean>(true);
 
   const [pr_as_obj, pr_as_setter] = useAppliedStates<
@@ -60,21 +68,17 @@ function BasePopup() {
 
   return (
     <>
-      <div className={styles.overLay}></div>
-      <div className={styles.container}>
+      <div className={styles.overLay} ref={overlayRef}></div>
+      <div className={styles.container} ref={containerRef}>
         <div className={styles.wrapper}>
           <div className={styles.circleDecorator} />
 
           {/* main content starts */}
 
-          <h2
-            className={styles.cardHeading + " bold display"}
-            onClick={() => {
-              console.log(priceRangeRef.current);
-            }}
-          >
-            Filters
-          </h2>
+          <div className={styles.headingRow}>
+            <h2 className={styles.cardHeading + " bold display"}>Filters</h2>
+            <CloseIcon className={styles.closeIcon} onClick={() => setShow(false)} />
+          </div>
           <div className={styles.spacer}></div>
 
           <div className={styles.filterWidgetContainer}>
@@ -138,7 +142,15 @@ function BasePopup() {
             <Spacer offset={30} />
             <coms.FilterLabels heading="Colors" />
             <GeneralList<string>
-              batch={["red", "blue", "pink"]}
+              batch={[
+                "red",
+                "blue",
+                "pink",
+                "lightgreen",
+                "yellow",
+                "gold",
+                "brown",
+              ]}
               renderMethod={function (
                 val: string,
                 index: number,
@@ -158,7 +170,7 @@ function BasePopup() {
               listContainerStyle={undefined}
             />
           </div>
-
+          <Spacer offset={30} />
           <div
             className={styles.submitButton}
             onClick={() => {

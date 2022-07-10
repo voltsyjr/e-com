@@ -71,7 +71,9 @@ function Home() {
         <div className="prodZone">
           <div className={"feature-heading-row" +" row"}>
             <h2 className="display zoneHeading">Featured Products</h2>
-            <stdCom.BaseLabel onClick={{}} fill={false} />
+            <stdCom.BaseLabel onClick={() => {
+              setShowFilterPopup(true); 
+            }} fill={false} />
           </div>
 
           <motion.div
@@ -97,7 +99,7 @@ function Home() {
       <stdCom.Footer />
       <stdCom.BottomNav />
       <stdCom.BaseNav />
-      <stdCom.BasePopup/>
+      {showFilterPopup && <stdCom.BasePopup setShow={setShowFilterPopup}/>}
     </>
   );
 }

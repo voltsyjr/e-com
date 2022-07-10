@@ -13,18 +13,21 @@
   border-radius: 20px;
   width: 93%;
   height: 100vmin;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   // z-index : 2;
   max-height: 500px;
+  @media (max-width : 400px) {
+    height : auto; 
+  }
 }
 
 .overLay {
   height: 100%;
   width: 100%;
-  position: absolute;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.122);
   top: 0;
   left: 0;
@@ -56,6 +59,17 @@
 .spacer {
   width: 100%;
   height: 36px;
+}
+
+.headingRow {
+  @include row;
+  justify-content : space-between; 
+}
+
+.closeIcon {
+  width : 23px; 
+  height : 23px; 
+  color :black; 
 }
 
 /*other components*/
@@ -120,6 +134,7 @@
   width : 127px; 
   height : 28px; 
   background-color: #fff;
+  border-radius : 4px; 
   @include cc; 
   
   .wrapper {
@@ -138,6 +153,6 @@
 
 .filterWidgetContainer {
   height : 65%; 
-  overflow: scroll;
+  overflow-y: auto;
   max-height: 300px;
 }
