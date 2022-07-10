@@ -18,6 +18,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   // z-index : 2;
+  max-height: 500px;
 }
 
 .overLay {
@@ -40,8 +41,10 @@
 
 .circleDecorator {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  min-width: 100px;
+  min-height: 100px;
+  width: calc((70vmin * 100px)/414px);
+  height: calc((70vmin * 100px)/414px);
   left: 0;
   top: 0;
   transform: translate(-15%, -20%);
@@ -94,4 +97,47 @@
   overflow: hidden;
   //* doesn't works
   // position : fixed;
+}
+
+
+.submitButton {
+  height : 37.75px; 
+  width : 122px; 
+  outline: none;
+  border: transparent;
+  background-color: #698aff;
+  border-radius: 4px;
+  @include cc; 
+  > p {
+    font-size: 14px;
+    color : white;
+    letter-spacing: 1px;
+  }
+}
+
+.colorSelectionContainer {
+  margin : 5px; 
+  width : 127px; 
+  height : 28px; 
+  background-color: #fff;
+  @include cc; 
+  
+  .wrapper {
+    @include row; 
+    .colorIndicator {
+      width: 17px; 
+      height : 17px;
+      border-radius: 4px; 
+      margin-right  : 10px; 
+    }
+    .colorText {
+      font-size : 12px; 
+    }
+  }
+}
+
+.filterWidgetContainer {
+  height : 65%; 
+  overflow: scroll;
+  max-height: 300px;
 }

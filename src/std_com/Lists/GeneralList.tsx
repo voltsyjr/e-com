@@ -1,14 +1,17 @@
 import React from 'react'
 
-type GeneralList<T> = {
+/*
+  T == the type of the data 
+  render method
+*/
+
+type GeneralListParams<T> = {
   batch : T[], 
   renderMethod : (val : T, index : number, array : T[]) => React.ReactNode, 
-  currentSelection : number, 
-  setCurrentSelected : React.SetStateAction<number>, 
   listContainerStyle : React.CSSProperties, 
 }
 
-function GeneralList<T>(props : GeneralList<T>) {
+function GeneralList<T>(props : GeneralListParams<T>) {
   return (
     <div style={props.listContainerStyle} >
       {

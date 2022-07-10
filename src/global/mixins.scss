@@ -5,6 +5,10 @@
   align-items : center; 
 }
 
+@mixin plainRow {
+  display : flex; 
+}
+
 @mixin cc {
   @include vc(false);
   @include hc(false);

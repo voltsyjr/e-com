@@ -6,7 +6,6 @@ import React, {
 } from "react";
 import styles from "./BasePopup.module.scss";
 
-import Input from '../../input/Input'; 
 
 //* types, interfaces and classes */
 type BasePopupParams = {
@@ -69,34 +68,31 @@ export function FilterWidget(
   );
 }
 
-// export function PriceRangeInput(props: {
-//   rangeStartCallback: inputCallback;
-//   rangeEndCallback: inputCallback;
-  
-// }) {
-//   return (
-//     <div className="row">
-//       <Input
-//         // className={styles.inputStyles}
-//         // type={"number"}
-//         // onChange={props.rangeStartCallback}
-//         inputParams={{
-//           className : styles.inputStyles, 
-//           type : "number", 
-//           onChange : props.rangeStartCallback
-//         }}
-
-//       />
-//       <p className={styles.inputSeparatorText}>to</p>
-//       <Input
-//         inputParams={{
-//           className : styles.inputStyles, 
-//           type : "number", 
-//           onChange : props.rangeEndCallback
-//         }}
-//       />
-//     </div>
-//   );
-// }
-
-export {};
+export function ColorSelection({
+  colorName, 
+  activeStyle, 
+  currentSelection, 
+  setSelection, 
+  id 
+} :{
+  colorName : string, 
+  activeStyle : React.CSSProperties,
+  setSelection : React.Dispatch<React.SetStateAction<number>>, 
+  currentSelection : number, 
+  id : number
+}) {
+  return <div className={styles.colorSelectionContainer} style={(currentSelection === id) ? activeStyle : {}} 
+    onClick={(e) => {
+      if(currentSelection === id) {
+        setSelection(-1); 
+      } else {
+        setSelection(id); 
+      }
+    }}
+  >
+    <div className={styles.wrapper}>
+      <div className={styles.colorIndicator} style={{backgroundColor : colorName}}></div>
+      <p className={styles.colorText}>{colorName}</p>
+    </div>
+  </div>
+}

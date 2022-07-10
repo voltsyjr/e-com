@@ -12,41 +12,70 @@ export default class FormManager<T, ET extends string> {
   // properties
   // applied states object
   private verificationStateObjectSetter: React.Dispatch<
-    React.SetStateAction<
-      types.AppliedStatesObject<types.inputValidation>
-    >
+    React.SetStateAction<types.AppliedStatesObject<types.inputValidation>>
   >;
   private objectRef: React.MutableRefObject<T>;
   private validatorObject: HashSet<types.validator>;
+  private guradRef: React.MutableRefObject<boolean>;
 
   constructor(
     verificationStateObjectSetter: React.Dispatch<
-      React.SetStateAction<
-        types.AppliedStatesObject<types.inputValidation>
-      >
+      React.SetStateAction<types.AppliedStatesObject<types.inputValidation>>
     >,
     objectRef: React.MutableRefObject<T>,
-    validatorObject: HashSet<types.validator>
+    validatorObject: HashSet<types.validator>,
+    guradRef: React.MutableRefObject<boolean>
   ) {
     this.objectRef = objectRef;
     this.verificationStateObjectSetter = verificationStateObjectSetter;
     this.validatorObject = validatorObject;
+    this.guradRef = guradRef; 
   }
 
-  validate(key: string, options: ET[]): void {
-    // if (this.objectRef.current[key] === undefined) return;
+  validate(key: string, options: ET[]) {
+    let validationVerdict: types.inputValidation = {
+      hasError: false,
+      errMessage: [],
+    };
 
-    this.verificationStateObjectSetter((val) => {
-      const verificationStateObject_copy = {...val};
+    let hasError = false;
 
-      for(let option of options) {
-        let validator = this.validatorObject.get(option); 
-        if(validator !== null) {
-          verificationStateObject_copy[key] = validator(this.objectRef.current[key]);
-          // console.log("values from validate ::: ",option, verificationStateObject_copy); 
+    for (let option of options) {
+      let validator = this.validatorObject.get(option);
+      if (validator !== null) {
+        let validationResponse = validator(this.objectRef.current[key]);
+        if (validationResponse.hasError === true) {
+          validationVerdict = validationResponse;
+          hasError = true;
+          break;
         }
       }
-      return verificationStateObject_copy;
+    }
+
+    this.guradRef.current = !hasError; 
+
+    this.verificationStateObjectSetter((prev) => ({
+      ...prev,
+      [key]: validationVerdict,
+    }));
+  }
+
+  isOk(): boolean {
+    return this.guradRef.current;
+  }
+
+  toNumber(key: string) {
+    this.verificationStateObjectSetter((prev) => {
+      // console.log(key, parseInt(this.objectRef.current[key]));
+      let copy = { ...prev };
+      if (parseInt(this.objectRef.current[key]) === NaN) {
+        copy[key].hasError = true;
+        copy[key].errMessage.push("input is not a valid number");
+        return copy;
+      } else {
+        this.objectRef.current[key] = parseInt(this.objectRef.current[key]);
+        return prev;
+      }
     });
   }
 }
