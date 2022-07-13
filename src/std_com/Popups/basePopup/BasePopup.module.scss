@@ -13,10 +13,10 @@
   border-radius: 20px;
   width: 93%;
   height: 100vmin;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  // position: fixed;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
   // z-index : 2;
   max-height: 500px;
   @media (max-width : 400px) {
@@ -136,7 +136,7 @@
   background-color: #fff;
   border-radius : 4px; 
   @include cc; 
-  
+
   .wrapper {
     @include row; 
     .colorIndicator {

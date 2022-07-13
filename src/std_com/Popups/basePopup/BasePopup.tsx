@@ -7,13 +7,14 @@ import { types } from "../../_imports";
 import GeneralList from "../../Lists/GeneralList";
 import { ReactComponent as CloseIcon } from "../../../asset/icons/close-round.svg";
 import { FormValidator, Hash } from "../../../solutions/raw";
+import ShakingButton from "../../Button/ShakingButton";
+import { motion } from "framer-motion";
 
 function BasePopup({
   setShow,
 }: {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-
   useEffect(() => {
     const body = document.body as HTMLElement;
     body.classList.add(styles.stopScrolling);
@@ -39,9 +40,21 @@ function BasePopup({
   const _ = new FormValidator<coms.PriceRange>(DHash, VHash);
 
   return (
-    <>
-      <div className={styles.overLay}></div>
-      <div className={styles.container}>
+    <motion.div
+      initial={{
+        position: "fixed",
+        top: "50%",
+        left: -200,
+        y : "-50%"
+      }}
+      animate={{
+        left : "50%", 
+        x : "-50%"
+      }}
+      exit={{x : "60%"}}
+      className={styles.container}
+    >
+      {/* <div className={styles.overLay}></div> */}
         <div className={styles.wrapper}>
           <div className={styles.circleDecorator} />
 
@@ -140,7 +153,7 @@ function BasePopup({
             />
           </div>
           <Spacer offset={30} />
-          <div
+          <ShakingButton
             className={styles.submitButton}
             onClick={() => {
               _.validateMany(Object.keys(new coms.PriceRange()), [
@@ -156,14 +169,12 @@ function BasePopup({
                   return verdict;
                 },
               ]);
-
             }}
           >
             <p className="regular">submit</p>
-          </div>
+          </ShakingButton>
         </div>
-      </div>
-    </>
+    </motion.div>
   );
 }
 

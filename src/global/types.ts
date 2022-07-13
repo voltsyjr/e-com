@@ -44,6 +44,11 @@ class InputValidationParameters {
 
 type Validator = (data: string) => InputValidationParameters;
 
+enum Animations {
+  flash = 'flash', 
+  shakeX = 'shakeX'
+}
+
 export {
   type optionButtonProp,
   buttonParam,
@@ -53,5 +58,6 @@ export {
   type inputValidation, 
   type ObjectLiteral, 
   type Validator, 
-  InputValidationParameters
+  InputValidationParameters, 
+  Animations
 };

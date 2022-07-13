@@ -1,32 +1,14 @@
+import anime from "animejs/lib/anime.es";
 import React, {
   useRef,
   useImperativeHandle,
   useState,
   ReducerAction,
 } from "react";
-import { ObjectLiteral } from "../../../global/types";
 import styles from "./BasePopup.module.scss";
+import {motion} from 'framer-motion'; 
 
 //* types, interfaces and classes */
-type BasePopupParams = {
-  show: boolean;
-};
-
-type inputCallback = (e: React.ChangeEvent<HTMLInputElement>) => void;
-
-interface FormState<T> {
-  build(obj_ts: ObjectLiteral<string>): T;
-}
-
-export class FormPriceRange implements FormState<PriceRange> {
-  build(obj_ts: ObjectLiteral<string>): PriceRange {
-    const build = new PriceRange();
-    build.rangeStart = parseInt(obj_ts.rangeStart);
-    build.rangeEnd = parseInt(obj_ts.rangeEnd);
-    return build;
-  }
-}
-
 export class PriceRange {
   public rangeStart: number;
   public rangeEnd: number;
@@ -36,16 +18,7 @@ export class PriceRange {
   }
 }
 
-export class FilterParams {
-  public priceRange: PriceRange;
-
-  constructor(range: PriceRange) {
-    this.priceRange = range;
-  }
-}
-
 //* components */
-
 export function FilterLabels(
   { heading }: { heading: string } = { heading: "heading" }
 ) {
@@ -94,6 +67,7 @@ export function ColorSelection({
   currentSelection: number;
   id: number;
 }) {
+
   return (
     <div
       className={styles.colorSelectionContainer}
@@ -107,10 +81,10 @@ export function ColorSelection({
       }}
     >
       <div className={styles.wrapper}>
-        <div
+        <motion.div animate={currentSelection === id ? {rotate : 360} : {}}
           className={styles.colorIndicator}
           style={{ backgroundColor: colorName }}
-        ></div>
+        />
         <p className={styles.colorText}>{colorName}</p>
       </div>
     </div>

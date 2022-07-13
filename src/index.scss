@@ -1,8 +1,8 @@
 /*font-family: 'Playfair Display', serif;
 font-family: 'Poppins', sans-serif;*/
-@use "./global/vars.scss" as *; 
+@use "./global/vars.scss" as *;
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,800;0,900;1,400&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
 
 * {
   box-sizing: border-box;
@@ -12,29 +12,29 @@ font-family: 'Poppins', sans-serif;*/
 :root {
   /*breakpoints*/
   /*note -> after xs it is max-widht else min-width*/
-  --xs : 480px; 
-  --xs-1 : 400px; 
-  --xs-2 : 360px; 
-  --s : 600px; 
-  --s-1 : 840px; 
-  --m : 960px; 
-  --l : 1280px; 
-  --l-1 : 1440px; 
-  --l-2 : 1600px; 
-  --xl : 1920px; 
+  --xs: 480px;
+  --xs-1: 400px;
+  --xs-2: 360px;
+  --s: 600px;
+  --s-1: 840px;
+  --m: 960px;
+  --l: 1280px;
+  --l-1: 1440px;
+  --l-2: 1600px;
+  --xl: 1920px;
 
   /* colors */
-  --primary : #f8bbd0; 
-  --primary-light : #ffeeff; 
-  --primary-dark : #c48b9f; 
-  --secondary : #0038FF; 
-  --secondary-light : #698aff; 
-  --secondary-dark : #00145C; 
+  --primary: #f8bbd0;
+  --primary-light: #ffeeff;
+  --primary-dark: #c48b9f;
+  --secondary: #0038ff;
+  --secondary-light: #698aff;
+  --secondary-dark: #00145c;
 
   /*greys*/
-  --grey-light : #efefef; 
+  --grey-light: #efefef;
 
-  --reff : 20px; 
+  --reff: 20px;
 }
 
 body {
@@ -70,10 +70,10 @@ code {
   font-weight: 400;
 }
 .light {
-  font-weight : 300; 
+  font-weight: 300;
 }
 .extralight {
-  font-weight : 200; 
+  font-weight: 200;
 }
 .poppins {
   font-family: "Poppins";
@@ -82,16 +82,16 @@ code {
   font-family: "Playfair Display";
 }
 .montserrat {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .row {
-  display : flex; 
-  align-items : center; 
+  display: flex;
+  align-items: center;
 }
 
 .plainRow {
-  display : flex; 
+  display: flex;
 }
 
 h1 {
@@ -106,7 +106,7 @@ h1 {
 
 h2 {
   font-size: 24px;
-  
+
   @media (min-width: $s) {
     font-size: 32px;
   }
@@ -117,7 +117,7 @@ h2 {
 
 h3 {
   font-size: 16px;
-  
+
   @media (min-width: $s) {
     font-size: 20px;
   }
@@ -134,4 +134,48 @@ p {
   @media (min-width: $s) {
     font-size: 20px;
   }
+}
+
+// animations
+@keyframes flash {
+  from,
+  50%,
+  to {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+
+@keyframes shakeX {
+  from,
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+.shakeX {
+  animation-name: shakeX;
+}
+
+.flash {
+  animation-name: flash;
 }

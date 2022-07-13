@@ -3,7 +3,7 @@ import "./Home.scss";
 
 import { ReactComponent as ArrowRight } from "../../asset/arrow-right.svg";
 import { stdCom, types } from "../_imports";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, useVelocity } from "framer-motion";
 
 import imageSrc from "../../asset/images/fImageDummy.png";
 
@@ -37,10 +37,13 @@ function Home() {
     },
   ];
 
+  //* motion
+  // const _inVelocity = useVelocity(1);
+
   //* states
   const [currentSelected, setCurrentSelected] = useState(-1);
   const [showOptions, setShowOptions] = useState(false);
-  const [showFilterPopup, setShowFilterPopup] = useState(false); 
+  const [showFilterPopup, setShowFilterPopup] = useState(false);
 
   //* effects
 
@@ -69,11 +72,14 @@ function Home() {
         </div>
         <div className="break" />
         <div className="prodZone">
-          <div className={"feature-heading-row" +" row"}>
+          <div className={"feature-heading-row" + " row"}>
             <h2 className="display zoneHeading">Featured Products</h2>
-            <stdCom.BaseLabel onClick={() => {
-              setShowFilterPopup(true); 
-            }} fill={false} />
+            <stdCom.BaseLabel
+              onClick={() => {
+                setShowFilterPopup(true);
+              }}
+              fill={false}
+            />
           </div>
 
           <motion.div
@@ -99,7 +105,9 @@ function Home() {
       <stdCom.Footer />
       <stdCom.BottomNav />
       <stdCom.BaseNav />
-      {showFilterPopup && <stdCom.BasePopup setShow={setShowFilterPopup}/>}
+      <AnimatePresence>
+        {showFilterPopup && <stdCom.BasePopup setShow={setShowFilterPopup} />}
+      </AnimatePresence>
     </>
   );
 }
