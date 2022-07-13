@@ -34,11 +34,24 @@ type inputValidation = {
   errMessage : string[]
 }
 
+type ObjectLiteral<D> = { [key: string]: D };
+
+class InputValidationParameters {
+  public isValid: boolean = true;
+  public errMessage: string = "";
+}
+
+
+type Validator = (data: string) => InputValidationParameters;
+
 export {
   type optionButtonProp,
   buttonParam,
   type ProductCard,
   type AppliedStatesObject,
   type validator, 
-  type inputValidation
+  type inputValidation, 
+  type ObjectLiteral, 
+  type Validator, 
+  InputValidationParameters
 };

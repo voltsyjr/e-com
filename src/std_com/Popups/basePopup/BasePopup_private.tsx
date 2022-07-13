@@ -4,8 +4,8 @@ import React, {
   useState,
   ReducerAction,
 } from "react";
+import { ObjectLiteral } from "../../../global/types";
 import styles from "./BasePopup.module.scss";
-
 
 //* types, interfaces and classes */
 type BasePopupParams = {
@@ -14,10 +14,23 @@ type BasePopupParams = {
 
 type inputCallback = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
+interface FormState<T> {
+  build(obj_ts: ObjectLiteral<string>): T;
+}
+
+export class FormPriceRange implements FormState<PriceRange> {
+  build(obj_ts: ObjectLiteral<string>): PriceRange {
+    const build = new PriceRange();
+    build.rangeStart = parseInt(obj_ts.rangeStart);
+    build.rangeEnd = parseInt(obj_ts.rangeEnd);
+    return build;
+  }
+}
+
 export class PriceRange {
-  public rangeStart: number | undefined;
-  public rangeEnd: number | undefined;
-  constructor(rangeStart?: number, rangeEnd?: number) {
+  public rangeStart: number;
+  public rangeEnd: number;
+  constructor(rangeStart: number = 0, rangeEnd: number = 0) {
     this.rangeStart = rangeStart;
     this.rangeEnd = rangeEnd;
   }
@@ -69,30 +82,37 @@ export function FilterWidget(
 }
 
 export function ColorSelection({
-  colorName, 
-  activeStyle, 
-  currentSelection, 
-  setSelection, 
-  id 
-} :{
-  colorName : string, 
-  activeStyle : React.CSSProperties,
-  setSelection : React.Dispatch<React.SetStateAction<number>>, 
-  currentSelection : number, 
-  id : number
+  colorName,
+  activeStyle,
+  currentSelection,
+  setSelection,
+  id,
+}: {
+  colorName: string;
+  activeStyle: React.CSSProperties;
+  setSelection: React.Dispatch<React.SetStateAction<number>>;
+  currentSelection: number;
+  id: number;
 }) {
-  return <div className={styles.colorSelectionContainer} style={(currentSelection === id) ? activeStyle : {}} 
-    onClick={(e) => {
-      if(currentSelection === id) {
-        setSelection(-1); 
-      } else {
-        setSelection(id); 
-      }
-    }}
-  >
-    <div className={styles.wrapper}>
-      <div className={styles.colorIndicator} style={{backgroundColor : colorName}}></div>
-      <p className={styles.colorText}>{colorName}</p>
+  return (
+    <div
+      className={styles.colorSelectionContainer}
+      style={currentSelection === id ? activeStyle : {}}
+      onClick={(e) => {
+        if (currentSelection === id) {
+          setSelection(-1);
+        } else {
+          setSelection(id);
+        }
+      }}
+    >
+      <div className={styles.wrapper}>
+        <div
+          className={styles.colorIndicator}
+          style={{ backgroundColor: colorName }}
+        ></div>
+        <p className={styles.colorText}>{colorName}</p>
+      </div>
     </div>
-  </div>
+  );
 }

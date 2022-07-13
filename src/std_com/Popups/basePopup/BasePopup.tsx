@@ -1,75 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { useRef } from "react";
 import Input from "../../input/Input";
 import Spacer from "../../spacer/spacer";
 import styles from "./BasePopup.module.scss";
 import * as coms from "./BasePopup_private";
-import useAppliedStates from "../../Hooks/useAppliedStates";
-import {
-  FormManager,
-  types,
-  validators,
-  VALIDATOR_OPTIONS,
-} from "../../_imports";
+import { types } from "../../_imports";
 import GeneralList from "../../Lists/GeneralList";
 import { ReactComponent as CloseIcon } from "../../../asset/icons/close-round.svg";
-
-function getStringedObject(obj: object): { [key: string]: string } {
-  const ans: { [key: string]: string } = {};
-  for (let i of Object.keys(obj)) {
-    ans[i] = "";
-  }
-  return ans;
-}
+import { FormValidator, Hash } from "../../../solutions/raw";
 
 function BasePopup({
-  setShow
-} : {
-  setShow : React.Dispatch<React.SetStateAction<boolean>>
+  setShow,
+}: {
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+
   useEffect(() => {
     const body = document.body as HTMLElement;
     body.classList.add(styles.stopScrolling);
     return () => body.classList.remove(styles.stopScrolling);
   });
 
-  const containerRef = useRef<HTMLDivElement>(null!); 
-  const overlayRef = useRef<HTMLDivElement>(null!); 
-  
-  const isFormOk = useRef<boolean>(true);
-
-  const [pr_as_obj, pr_as_setter] = useAppliedStates<
-    coms.PriceRange,
-    types.inputValidation
-  >(new coms.PriceRange(-1, -1), {
-    hasError: false,
-    errMessage: [],
-  });
-
-  const priceRangeRef = useRef<{ [key: string]: string }>(
-    getStringedObject(new coms.PriceRange(-1, -1))
-  );
-
-  const updateRef = (key: string) => {
-    return (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      priceRangeRef.current[key] = e.target.value;
-    };
-  };
-
-  const manager = new FormManager<{ [key: string]: string }, VALIDATOR_OPTIONS>(
-    pr_as_setter,
-    priceRangeRef,
-    validators,
-    isFormOk
-  );
-
   const [currentColor, setCurrentColor] = useState(-1);
+
+  const [a, setA] = useState<types.ObjectLiteral<string>>(
+    FormValidator.BuildObject<string>(new coms.PriceRange(), (val) => "")
+  );
+  const [b, setB] = useState<
+    types.ObjectLiteral<types.InputValidationParameters>
+  >(
+    FormValidator.BuildObject<types.InputValidationParameters>(
+      new coms.PriceRange(),
+      (val) => new types.InputValidationParameters()
+    )
+  );
+
+  const DHash = new Hash<string, string>(a, setA);
+  const VHash = new Hash<string, types.InputValidationParameters>(b, setB);
+  const _ = new FormValidator<coms.PriceRange>(DHash, VHash);
 
   return (
     <>
-      <div className={styles.overLay} ref={overlayRef}></div>
-      <div className={styles.container} ref={containerRef}>
+      <div className={styles.overLay}></div>
+      <div className={styles.container}>
         <div className={styles.wrapper}>
           <div className={styles.circleDecorator} />
 
@@ -77,7 +49,10 @@ function BasePopup({
 
           <div className={styles.headingRow}>
             <h2 className={styles.cardHeading + " bold display"}>Filters</h2>
-            <CloseIcon className={styles.closeIcon} onClick={() => setShow(false)} />
+            <CloseIcon
+              className={styles.closeIcon}
+              onClick={() => setShow(false)}
+            />
           </div>
           <div className={styles.spacer}></div>
 
@@ -87,25 +62,22 @@ function BasePopup({
             <div className="plainRow">
               <Input
                 inputParams={{
-                  onChange: updateRef("rangeStart"),
+                  onChange: (e) => DHash.set("rangeStart", e.target.value),
                   type: "number",
                   className: styles.inputStyles,
                 }}
-                hasError={pr_as_obj["rangeStart"].hasError}
                 width={87}
                 offset={4}
-                err={{
-                  errMessage: pr_as_obj["rangeStart"].errMessage,
-                  errStyles: {
-                    para: {
-                      color: "red",
-                      fontSize: 10,
-                    },
-                    input: {
-                      borderColor: "red",
-                    },
+                errStyles={{
+                  para: {
+                    color: "red",
+                    fontSize: 10,
+                  },
+                  input: {
+                    borderColor: "red",
                   },
                 }}
+                err={VHash.get("rangeStart")}
                 divStyles={{
                   marginLeft: 4,
                   marginRight: 4,
@@ -114,25 +86,22 @@ function BasePopup({
               <p className={styles.inputSeparatorText}>to</p>
               <Input
                 inputParams={{
-                  onChange: updateRef("rangeEnd"),
+                  onChange: (e) => DHash.set("rangeEnd", e.target.value),
                   type: "number",
                   className: styles.inputStyles,
                 }}
-                hasError={pr_as_obj["rangeEnd"].hasError}
                 width={87}
                 offset={4}
-                err={{
-                  errMessage: pr_as_obj["rangeEnd"].errMessage,
-                  errStyles: {
-                    para: {
-                      color: "red",
-                      fontSize: 10,
-                    },
-                    input: {
-                      borderColor: "red",
-                    },
+                errStyles={{
+                  para: {
+                    color: "red",
+                    fontSize: 10,
+                  },
+                  input: {
+                    borderColor: "red",
                   },
                 }}
+                err={VHash.get("rangeEnd")}
                 divStyles={{
                   marginLeft: 4,
                   marginRight: 4,
@@ -174,25 +143,20 @@ function BasePopup({
           <div
             className={styles.submitButton}
             onClick={() => {
-              manager.validate("rangeStart", [
-                VALIDATOR_OPTIONS.isPresent,
-                VALIDATOR_OPTIONS.isNumber,
-              ]);
-              manager.validate("rangeEnd", [
-                VALIDATOR_OPTIONS.isPresent,
-                VALIDATOR_OPTIONS.isNumber,
+              _.validateMany(Object.keys(new coms.PriceRange()), [
+                (data: string) => {
+                  let verdict = new types.InputValidationParameters();
+                  if (data.length === 0) {
+                    verdict.isValid = false;
+                    verdict.errMessage = "input is empty";
+                  } else {
+                    verdict.isValid = true;
+                    verdict.errMessage = "";
+                  }
+                  return verdict;
+                },
               ]);
 
-              if (isFormOk.current) {
-                const finalObj = new coms.PriceRange();
-                finalObj.rangeEnd = parseInt(priceRangeRef.current["rangeEnd"]);
-                finalObj.rangeStart = parseInt(
-                  priceRangeRef.current["rangeStart"]
-                );
-                if (finalObj.rangeEnd <= finalObj.rangeStart)
-                  alert("enter a valid range");
-                console.log(finalObj);
-              }
             }}
           >
             <p className="regular">submit</p>
